@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
-import './styles.css';
-//import logo from '../../assets/logo.svg';
 import api from '../../services/api'
+
+import logo from '../../assets/logo.svg';
+import './styles.css';
 
 export default class Main extends Component {
     state = {
@@ -14,7 +14,8 @@ export default class Main extends Component {
         const response = await api.post('boxes', {
             title: this.state.newBox,
         });
-        console.log(response.data);
+
+        this.props.history.push(`/box/${response.data._id}`);
     };
 
     handleInputChange = e => {
@@ -24,6 +25,8 @@ export default class Main extends Component {
     render() {
         return (
             <div id="main-content">
+            
+                <img src={logo} alt="" />
                 <form onSubmit={this.handleSubmit} action="">
                     <input placeholder="Criar um box" value={this.state.newBox}
                         onChange={this.handleInputChange}
